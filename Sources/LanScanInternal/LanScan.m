@@ -31,9 +31,9 @@
 #define DEFAULT_CELLULAR_INTERFACE @"pdp_ip0"
 #endif
 
-#ifndef deb
-#define deb(format, ...) {if(DEBUG){NSString *__oo = [NSString stringWithFormat: @"%s:%@", __PRETTY_FUNCTION__, [NSString stringWithFormat:format, ## __VA_ARGS__]]; NSLog(@"%@", __oo); }}
-#endif
+// #ifndef NSLog
+// #define NSLog(format, ...) {if(NSLogUG){NSString *__oo = [NSString stringWithFormat: @"%s:%@", __PRETTY_FUNCTION__, [NSString stringWithFormat:format, ## __VA_ARGS__]]; NSLog(@"%@", __oo); }}
+// #endif
 
 #define BUFLEN (sizeof(struct rt_msghdr) + 512)
 #define SEQ 9999
@@ -63,7 +63,7 @@
 @implementation LanScan
 
 - (id)initWithDelegate:(id<LANScanDelegate>)delegate {
-    deb(@"init scanner");
+    NSLog(@"init scanner");
     self = [super init];
     if(self) {
         self.delegate = delegate;
@@ -112,7 +112,7 @@
 
 - (void)start {
     
-    deb(@"start scan for router: %@", [self getRouterIP]);
+    NSLog(@"start scan for router: %@", [self getRouterIP]);
 
     //Initializing the dictionary that holds the Brands name for each MAC Address
 
@@ -148,7 +148,7 @@
 }
 
 - (void)stop {
-    deb(@"stop scan");
+    NSLog(@"stop scan");
     [self.timer invalidate];
     self.timer = nil;
 }
@@ -198,8 +198,8 @@
                 
                 [self.delegate lanScanDidFindNewDevice: dict];
             } else {
-                // If debug mode is active
-                deb(@"%@", error);
+                // If NSLogug mode is active
+                NSLog(@"%@", error);
             }
             
         }];
@@ -545,7 +545,7 @@
 //    NSString *data = nil;
 //    CFDictionaryRef dict = CNCopyCurrentNetworkInfo((CFStringRef) DEFAULT_WIFI_INTERFACE);
 //    if (dict) {
-//        deb(@"AP Wifi: %@", dict);
+//        NSLog(@"AP Wifi: %@", dict);
 //        data = [NSString stringWithString:(NSString *)CFDictionaryGetValue(dict, @"SSID")];
 //        CFRelease(dict);
 //    }
